@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-new-location',
@@ -13,9 +18,21 @@ export class NewLocationComponent {
     parentLocation: [''],
   });
 
-  constructor(private formBuilder: FormBuilder) {}
+  locations: any = [];
+  constructor(
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<NewLocationComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+
+  ngOnInit() {
+    this.locations = this.data.locations;
+  }
 
   submit() {
-    console.log('bot');
+    this.dialogRef.close({
+      response: this.locationForm.value,
+    });
   }
 }

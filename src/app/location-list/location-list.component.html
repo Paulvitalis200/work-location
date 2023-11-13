@@ -23,7 +23,40 @@
     </div>
   </div>
 
-  <div *ngIf="locations.length > 0; else noLocations"></div>
+  <div
+    *ngIf="locations.length > 0; else noLocations"
+    cdkDropList
+    class="location-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <mat-accordion
+      *ngFor="let location of locations"
+      class="location-box"
+      [togglePosition]="'before'"
+      cdkDrag
+    >
+      <mat-expansion-panel
+        [expanded]="false"
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ location.name }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+          <div *ngFor="let childLocation of getChildLocations(location)">
+            {{ childLocation?.name }}
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <!-- <div class="location-box" *ngFor="let location of locations" cdkDrag>
+      {{ location.name }}
+    </div> -->
+    </mat-accordion>
+  </div>
   <ng-template #noLocations>
     <div class="no-location">
       <p>No Locations</p>
