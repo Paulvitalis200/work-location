@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NewLocationComponent } from '../shared/dialogs/new-location/new-location.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
+import { NewLocationComponent } from 'src/app/shared/dialogs/new-location/new-location.component';
+import { LocationsService } from 'src/app/core/services/locations.service';
 
 interface Location {
   id: number;
@@ -11,11 +12,11 @@ interface Location {
   parentLocation?: any;
 }
 @Component({
-  selector: 'app-location-list',
-  templateUrl: './location-list.component.html',
-  styleUrls: ['./location-list.component.scss'],
+  selector: 'app-all-locations',
+  templateUrl: './all-locations.component.html',
+  styleUrls: ['./all-locations.component.scss'],
 })
-export class LocationListComponent {
+export class AllLocationsComponent {
   locations: Location[] = [
     {
       id: 1,
@@ -58,16 +59,15 @@ export class LocationListComponent {
   selectedView: string = 'list';
   views: string[] = ['list', 'grid'];
   panelOpenState: boolean = false;
-  isActive: string = 'list';
 
-  constructor(private dialog: MatDialog, private router: Router) {
-    let activeView = localStorage.getItem('isActive');
-    activeView = JSON.parse(<string>activeView);
-    if (activeView) {
-      this.isActive = activeView;
-    } else {
-      localStorage.setItem('isActive', JSON.stringify(this.isActive));
-    }
+  constructor(
+    private dialog: MatDialog,
+    private locationsService: LocationsService,
+    private router: Router
+  ) {}
+
+  get isActive() {
+    return this.locationsService.get();
   }
 
   addLocation() {
@@ -92,8 +92,25 @@ export class LocationListComponent {
     });
   }
 
-  loadSection(section: string) {
-    this.isActive = section;
-    localStorage.setItem('isActive', JSON.stringify(section));
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.locations, event.previousIndex, event.currentIndex);
+  }
+
+  getChildLocations(inputLocation: Location) {
+    let childLocations: any = this.locations.filter(
+      (location: Location) =>
+        inputLocation.name?.toLowerCase() ===
+        location.parentLocation?.name?.toLowerCase()
+    );
+    return childLocations;
+  }
+
+  goToLocation(location: any) {
+    if (this.getChildLocations(location) < 1) return;
+    localStorage.setItem(
+      'childLocations',
+      JSON.stringify(this.getChildLocations(location))
+    );
+    this.router.navigateByUrl('location');
   }
 }

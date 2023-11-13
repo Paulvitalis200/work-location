@@ -1,0 +1,56 @@
+<div
+  *ngIf="locations.length > 0; else noLocations"
+  cdkDropList
+  class="location-list"
+  (cdkDropListDropped)="drop($event)"
+>
+  <div *ngIf="isActive === 'list'">
+    <mat-accordion
+      *ngFor="let location of locations"
+      [togglePosition]="'before'"
+      cdkDrag
+    >
+      <mat-expansion-panel
+        [expanded]="false"
+        class="location-box"
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ location.name }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div
+          *ngFor="let childLocation of getChildLocations(location)"
+          class="child-location"
+        >
+          {{ childLocation?.name }}
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div *ngIf="isActive === 'grid'" class="grid-list">
+    <div
+      *ngFor="let location of locations"
+      class="location-grid-box"
+      [ngClass]="{
+        pointer: getChildLocations(location).length > 0
+      }"
+      (click)="goToLocation(location)"
+    >
+      <div>{{ location.name }}</div>
+      <mat-icon *ngIf="getChildLocations(location).length > 0"
+        >keyboard_arrow_right</mat-icon
+      >
+    </div>
+  </div>
+</div>
+<ng-template #noLocations>
+  <div class="no-location">
+    <p>No Locations</p>
+    <button mat-button class="location-btn" (click)="addLocation()">
+      NEW LOCATION
+    </button>
+  </div>
+</ng-template>
