@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NewLocationComponent } from '../shared/dialogs/new-location/new-location.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Router } from '@angular/router';
 
 interface Location {
   id: number;
@@ -58,7 +59,7 @@ export class LocationListComponent {
   panelOpenState: boolean = false;
   isActive: string = 'grid';
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private router: Router) {}
 
   addLocation() {
     const dialogRef = this.dialog.open(NewLocationComponent, {
@@ -99,5 +100,14 @@ export class LocationListComponent {
   loadSection(section: string) {
     console.log(section);
     this.isActive = section;
+  }
+
+  goToLocation(location: any) {
+    if (this.getChildLocations(location) < 1) return;
+    localStorage.setItem(
+      'childLocations',
+      JSON.stringify(this.getChildLocations(location))
+    );
+    this.router.navigateByUrl('location');
   }
 }

@@ -69,6 +69,7 @@
         [ngClass]="{
           pointer: getChildLocations(location).length > 0
         }"
+        (click)="goToLocation(location)"
       >
         <div>{{ location.name }}</div>
         <mat-icon *ngIf="getChildLocations(location).length > 0"
