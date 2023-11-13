@@ -1,18 +1,35 @@
-<div>
+<div class="main">
   <div class="header">
     <div class="title-section">
-      <h3 class="title">Work locations</h3>
-      <mat-icon>home</mat-icon>
-      <p>List of all work locations</p>
+      <div class="title-sub">
+        <h3 class="title">Work locations</h3>
+        <mat-icon>bookmark_border</mat-icon>
+      </div>
+      <p class="title-sub-text">List of all work locations</p>
     </div>
-    <div>
+    <div class="action-section">
       <div>
-        <input placeholder="search" type="text" />
+        <input class="nosubmit" type="search" placeholder="Search..." />
+      </div>
+      <div class="view-section">
+        <mat-icon>list</mat-icon>
+        <mat-icon>grid_on</mat-icon>
       </div>
       <div>
-        <button mat-raised-button>Basic</button>
-        <button mat-button color="primary">NEW LOCATION</button>
+        <button mat-button class="location-btn" (click)="addLocation()">
+          NEW LOCATION
+        </button>
       </div>
     </div>
   </div>
+
+  <div *ngIf="locations.length > 0; else noLocations"></div>
+  <ng-template #noLocations>
+    <div class="no-location">
+      <p>No Locations</p>
+      <button mat-button class="location-btn" (click)="addLocation()">
+        NEW LOCATION
+      </button>
+    </div>
+  </ng-template>
 </div>

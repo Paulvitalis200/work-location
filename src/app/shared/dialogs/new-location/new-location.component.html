@@ -1,0 +1,54 @@
+<div class="main">
+  <div class="header">
+    <h3>New work location</h3>
+    <mat-icon mat-dialog-close>close</mat-icon>
+  </div>
+  <hr />
+
+  <form [formGroup]="locationForm" autocomplete="off" class="location-form">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <input matInput placeholder="Name" formControlName="name" />
+        <mat-error *ngIf="locationForm.controls['name'].errors">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Short name (Optional)</mat-label>
+        <input
+          matInput
+          placeholder="Short name (Optional)"
+          formControlName="shortName"
+        />
+        <mat-icon matSuffix>account_circle</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Parent location (Optional)</mat-label>
+        <input
+          matInput
+          placeholder="Parent location (Optional)"
+          formControlName="parentLocation"
+        />
+        <mat-icon matSuffix>account_circle</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="button-div">
+      <button mat-button class="cancel-btn">Cancel</button>
+      <button
+        mat-button
+        [disabled]="!locationForm.valid"
+        (click)="submit()"
+        class="submit-btn"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>
