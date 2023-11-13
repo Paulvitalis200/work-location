@@ -40,12 +40,12 @@
     <div *ngIf="isActive === 'list'">
       <mat-accordion
         *ngFor="let location of locations"
-        class="location-box"
         [togglePosition]="'before'"
         cdkDrag
       >
         <mat-expansion-panel
           [expanded]="false"
+          class="location-box"
           (opened)="panelOpenState = true"
           (closed)="panelOpenState = false"
         >
@@ -54,10 +54,11 @@
               {{ location.name }}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <div>
-            <div *ngFor="let childLocation of getChildLocations(location)">
-              {{ childLocation?.name }}
-            </div>
+          <div
+            *ngFor="let childLocation of getChildLocations(location)"
+            class="child-location"
+          >
+            {{ childLocation?.name }}
           </div>
         </mat-expansion-panel>
       </mat-accordion>

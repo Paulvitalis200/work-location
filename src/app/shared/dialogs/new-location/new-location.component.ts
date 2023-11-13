@@ -35,4 +35,8 @@ export class NewLocationComponent {
       response: this.locationForm.value,
     });
   }
+
+  close() {
+    this.dialogRef.close();
+  }
 }

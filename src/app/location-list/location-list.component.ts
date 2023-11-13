@@ -16,11 +16,49 @@ interface Location {
   styleUrls: ['./location-list.component.scss'],
 })
 export class LocationListComponent {
-  locations: Location[] = [];
+  locations: Location[] = [
+    {
+      id: 1,
+      name: 'Qatar HQ',
+      shortName: 'Qatar',
+      parentLocation: null,
+    },
+    {
+      id: 2,
+      name: 'UAE HQ',
+      shortName: 'Qatar',
+      parentLocation: {
+        id: 1,
+        name: 'Qatar HQ',
+        shortName: 'Qatar',
+      },
+    },
+    {
+      id: 3,
+      name: 'Jeddah HQ',
+      shortName: 'Qatar',
+      parentLocation: {
+        id: 1,
+        name: 'Qatar HQ',
+        shortName: 'Qatar',
+      },
+    },
+    {
+      id: 4,
+      name: 'Dubai HQ',
+      shortName: 'Qatar',
+      parentLocation: {
+        id: 3,
+        name: 'Jeddah HQ',
+        shortName: 'Qatar',
+      },
+    },
+  ];
+
   selectedView: string = 'list';
   views: string[] = ['list', 'grid'];
   panelOpenState: boolean = false;
-  isActive: string = 'grid';
+  isActive: string = 'list';
 
   constructor(private dialog: MatDialog, private router: Router) {}
 
@@ -34,7 +72,6 @@ export class LocationListComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result.response);
         const { name, shortName, parentLocation } = result.response;
         const newLocation = {
           id: Math.floor(Math.random() * 100000000),
@@ -52,16 +89,15 @@ export class LocationListComponent {
   }
 
   getChildLocations(inputLocation: Location) {
-    let nedddd: any = this.locations.filter(
+    let childLocations: any = this.locations.filter(
       (location: Location) =>
         inputLocation.name?.toLowerCase() ===
         location.parentLocation?.name?.toLowerCase()
     );
-    return nedddd;
+    return childLocations;
   }
 
   loadSection(section: string) {
-    console.log(section);
     this.isActive = section;
   }
 

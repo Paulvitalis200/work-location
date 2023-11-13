@@ -80,14 +80,19 @@ input.nosubmit {
 }
 
 .location-box {
-  //   display: flex;
-  //   flex-direction: row;
-  //   align-items: center;
-  //   justify-content: space-between;
-  box-sizing: border-box;
   cursor: move;
   background: white;
   font-size: 14px;
+  border: 1px solid grey !important;
+  margin-bottom: 10px;
+  box-shadow: none;
+}
+
+.child-location {
+  border: 1px solid grey;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .location-grid-box {
