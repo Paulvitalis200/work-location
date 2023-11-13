@@ -16,44 +16,7 @@ interface Location {
   styleUrls: ['./location-list.component.scss'],
 })
 export class LocationListComponent {
-  locations: Location[] = [
-    {
-      id: 1,
-      name: 'Qatar HQ',
-      shortName: 'Qatar',
-      parentLocation: null,
-    },
-    {
-      id: 2,
-      name: 'UAE HQ',
-      shortName: 'Qatar',
-      parentLocation: {
-        id: 1,
-        name: 'Qatar HQ',
-        shortName: 'Qatar',
-      },
-    },
-    {
-      id: 3,
-      name: 'Jeddah HQ',
-      shortName: 'Qatar',
-      parentLocation: {
-        id: 1,
-        name: 'Qatar HQ',
-        shortName: 'Qatar',
-      },
-    },
-    {
-      id: 4,
-      name: 'Dubai HQ',
-      shortName: 'Qatar',
-      parentLocation: {
-        id: 3,
-        name: 'Jeddah HQ',
-        shortName: 'Qatar',
-      },
-    },
-  ];
+  locations: Location[] = [];
   selectedView: string = 'list';
   views: string[] = ['list', 'grid'];
   panelOpenState: boolean = false;
