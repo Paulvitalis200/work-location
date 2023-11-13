@@ -53,7 +53,10 @@ export class LocationListComponent {
       },
     },
   ];
+  selectedView: string = 'list';
+  views: string[] = ['list', 'grid'];
   panelOpenState: boolean = false;
+  isActive: string = 'grid';
 
   constructor(private dialog: MatDialog) {}
 
@@ -91,5 +94,10 @@ export class LocationListComponent {
         location.parentLocation?.name?.toLowerCase()
     );
     return nedddd;
+  }
+
+  loadSection(section: string) {
+    console.log(section);
+    this.isActive = section;
   }
 }

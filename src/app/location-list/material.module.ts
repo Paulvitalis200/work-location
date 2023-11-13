@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [],
@@ -17,6 +18,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatDialogModule,
     DragDropModule,
     MatExpansionModule,
+    MatButtonToggleModule,
   ],
 })
 export class MaterialModule {}

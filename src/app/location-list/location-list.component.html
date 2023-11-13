@@ -12,8 +12,16 @@
         <input class="nosubmit" type="search" placeholder="Search..." />
       </div>
       <div class="view-section">
-        <mat-icon>list</mat-icon>
-        <mat-icon>grid_on</mat-icon>
+        <mat-button-toggle-group #group="matButtonToggleGroup">
+          <mat-button-toggle
+            *ngFor="let view of views"
+            aria-label="Text align right"
+            (change)="loadSection(view)"
+            [checked]="isActive === view"
+          >
+            <mat-icon>{{ view === "list" ? "list" : "grid_on" }}</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
       <div>
         <button mat-button class="location-btn" (click)="addLocation()">
@@ -29,33 +37,45 @@
     class="location-list"
     (cdkDropListDropped)="drop($event)"
   >
-    <mat-accordion
-      *ngFor="let location of locations"
-      class="location-box"
-      [togglePosition]="'before'"
-      cdkDrag
-    >
-      <mat-expansion-panel
-        [expanded]="false"
-        (opened)="panelOpenState = true"
-        (closed)="panelOpenState = false"
+    <div *ngIf="isActive === 'list'">
+      <mat-accordion
+        *ngFor="let location of locations"
+        class="location-box"
+        [togglePosition]="'before'"
+        cdkDrag
       >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ location.name }}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div>
-          <div *ngFor="let childLocation of getChildLocations(location)">
-            {{ childLocation?.name }}
+        <mat-expansion-panel
+          [expanded]="false"
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ location.name }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <div *ngFor="let childLocation of getChildLocations(location)">
+              {{ childLocation?.name }}
+            </div>
           </div>
-        </div>
-      </mat-expansion-panel>
-
-      <!-- <div class="location-box" *ngFor="let location of locations" cdkDrag>
-      {{ location.name }}
-    </div> -->
-    </mat-accordion>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div *ngIf="isActive === 'grid'" class="grid-list">
+      <div
+        *ngFor="let location of locations"
+        class="location-grid-box"
+        [ngClass]="{
+          pointer: getChildLocations(location).length > 0
+        }"
+      >
+        <div>{{ location.name }}</div>
+        <mat-icon *ngIf="getChildLocations(location).length > 0"
+          >keyboard_arrow_right</mat-icon
+        >
+      </div>
+    </div>
   </div>
   <ng-template #noLocations>
     <div class="no-location">
