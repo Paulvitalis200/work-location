@@ -16,6 +16,10 @@ const routes: Routes = [
       {
         path: 'location',
         component: LocationComponent,
+        data: {
+          title: 'Omnichannel profile',
+          breadcrumb: 'Omnichannel profile',
+        },
       },
     ],
   },

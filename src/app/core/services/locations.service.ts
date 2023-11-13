@@ -10,4 +10,9 @@ export class LocationsService {
     let isActive: any = localStorage.getItem('isActive');
     return JSON.parse(isActive);
   }
+
+  getLocations() {
+    let locations: any = localStorage.getItem('locations');
+    return JSON.parse(locations);
+  }
 }

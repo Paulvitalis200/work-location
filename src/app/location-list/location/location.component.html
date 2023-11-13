@@ -1,1 +1,12 @@
-<p>location works!</p>
+<div>
+  <div class="breadcrumb">
+    <p class="breadcrumb-text inactive" routerLink="/">All locations</p>
+    <mat-icon>chevron_right</mat-icon>
+    <p class="breadcrumb-text active">{{ locations[0].parentLocation.name }}</p>
+  </div>
+  <div class="grid-list">
+    <div *ngFor="let location of locations" class="location-grid-box">
+      <div>{{ location.name }}</div>
+    </div>
+  </div>
+</div>

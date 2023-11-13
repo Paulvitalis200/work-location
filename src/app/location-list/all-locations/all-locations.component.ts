@@ -17,45 +17,6 @@ interface Location {
   styleUrls: ['./all-locations.component.scss'],
 })
 export class AllLocationsComponent {
-  locations: Location[] = [
-    {
-      id: 1,
-      name: 'Qatar HQ',
-      shortName: 'Qatar',
-      parentLocation: null,
-    },
-    {
-      id: 2,
-      name: 'UAE HQ',
-      shortName: 'Qatar',
-      parentLocation: {
-        id: 1,
-        name: 'Qatar HQ',
-        shortName: 'Qatar',
-      },
-    },
-    {
-      id: 3,
-      name: 'Jeddah HQ',
-      shortName: 'Qatar',
-      parentLocation: {
-        id: 1,
-        name: 'Qatar HQ',
-        shortName: 'Qatar',
-      },
-    },
-    {
-      id: 4,
-      name: 'Dubai HQ',
-      shortName: 'Qatar',
-      parentLocation: {
-        id: 3,
-        name: 'Jeddah HQ',
-        shortName: 'Qatar',
-      },
-    },
-  ];
-
   selectedView: string = 'list';
   views: string[] = ['list', 'grid'];
   panelOpenState: boolean = false;
@@ -68,6 +29,10 @@ export class AllLocationsComponent {
 
   get isActive() {
     return this.locationsService.get();
+  }
+
+  get locations() {
+    return this.locationsService.getLocations();
   }
 
   addLocation() {

@@ -1,5 +1,5 @@
 <div
-  *ngIf="locations.length > 0; else noLocations"
+  *ngIf="locations?.length > 0; else noLocations"
   cdkDropList
   class="location-list"
   (cdkDropListDropped)="drop($event)"
@@ -49,8 +49,5 @@
 <ng-template #noLocations>
   <div class="no-location">
     <p>No Locations</p>
-    <button mat-button class="location-btn" (click)="addLocation()">
-      NEW LOCATION
-    </button>
   </div>
 </ng-template>
