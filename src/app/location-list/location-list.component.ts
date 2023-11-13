@@ -67,10 +67,10 @@ export class LocationListComponent {
 
   goToLocation(location: any) {
     if (this.getChildLocations(location) < 1) return;
-    localStorage.setItem(
-      'childLocations',
-      JSON.stringify(this.getChildLocations(location))
-    );
-    this.router.navigateByUrl('location');
+    // localStorage.setItem(
+    //   'childLocations',
+    //   JSON.stringify(this.getChildLocations(location))
+    // );
+    // this.router.navigateByUrl('location');
   }
 }
